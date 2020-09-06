@@ -1,7 +1,7 @@
 public class Patient {
-    private String name;
-    private int age, oxygenLevels, id;
-    private float temperature;
+    private final String name;
+    private final int age, oxygenLevels, id;
+    private final float temperature;
     private int advisedNoOfDays;
 
     private static int counter = 0;
@@ -21,10 +21,18 @@ public class Patient {
 
     public void displayDetails() {
         System.out.println(name + "\n" +
-            "Temperature is " + temperature + "\n" +
-            "Oxygen levels is " + oxygenLevels + "\n" +
-            "Admission Status - " + ((isAdmitted()) ? "Admitted" : "Not Admitted") + "\n" +
-            "Admitting Institute - " + hospital
+                "Temperature is " + temperature + "\n" +
+                "Oxygen levels is " + oxygenLevels
+            );
+
+        if(hospital == null)
+            System.out.println(
+                "Admission Status - " + "Not Admitted"
+            );
+        else
+            System.out.println(
+                "Admission Status - " + "Admitted" + "\n" +
+                "Admitting Institute - " + hospital
             );
     }
 

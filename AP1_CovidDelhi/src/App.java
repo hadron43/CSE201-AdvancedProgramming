@@ -2,8 +2,8 @@ import java.util.Scanner;
 import java.util.Vector;
 
 public class App {
-    private Vector<Patient> patients;
-    private Vector<HealthCareInstitute> healthCareInstitutes;
+    private final Vector<Patient> patients;
+    private final Vector<HealthCareInstitute> healthCareInstitutes;
 
     private int noOfPatientsInCamp, noOfOpenInstitutes;
 
@@ -29,11 +29,12 @@ public class App {
 
     private void addHealthCareInstitute (){
         String name;
-        int maxTemp, minOxygen, noOfAvailableBeds;
+        float maxTemp;
+        int minOxygen, noOfAvailableBeds;
 
         name = scanner.next();
         System.out.print("Temperature Criteria - ");
-        maxTemp = scanner.nextInt();
+        maxTemp = scanner.nextFloat();
 
         System.out.print("Oxygen Levels - ");
         minOxygen = scanner.nextInt();

@@ -7,10 +7,12 @@ enum Status {
 
 public class HealthCareInstitute {
     private Status status;
-    private String name;
-    private int maxTemperature, minOxygenLevels, availableBeds;
+    private final String name;
+    private final int minOxygenLevels;
+    private final float maxTemperature;
+    private int availableBeds;
 
-    private Vector<Patient> patients;
+    private final Vector<Patient> patients;
 
     private void setStatus(){
         if(availableBeds > 0)
@@ -19,7 +21,7 @@ public class HealthCareInstitute {
             status = Status.CLOSED;
     }
 
-    HealthCareInstitute(String name, int maxTemperature,
+    HealthCareInstitute(String name, float maxTemperature,
                         int minOxygenLevels, int availableBeds) {
         this.name = name;
         this.maxTemperature = maxTemperature;
