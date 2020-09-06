@@ -1,8 +1,7 @@
-import java.util.Scanner;
-import java.util.Vector;
+import java.util.*;
 
 public class App {
-    private final Vector<Patient> patients;
+    private final HashMap<Integer, Patient> patients;
     private final Vector<HealthCareInstitute> healthCareInstitutes;
 
     private int noOfPatientsInCamp, noOfOpenInstitutes;
@@ -10,7 +9,7 @@ public class App {
     private static final Scanner scanner = new Scanner(System.in);
 
     App() {
-        patients = new Vector<>();
+        patients = new HashMap<>();
         healthCareInstitutes = new Vector<>();
         noOfOpenInstitutes = noOfPatientsInCamp = 0;
     }
@@ -48,7 +47,7 @@ public class App {
         newInstitute.displayDetails();
 
         Vector<Patient> freshlyAdmittedPatients = new Vector<>();
-        for(Patient p : patients) {
+        for(Patient p : patients.values()) {
             if(newInstitute.getStatus() == Status.CLOSED)
                 break;
 
@@ -57,7 +56,7 @@ public class App {
             }
         }
 
-        for(Patient p : patients) {
+        for(Patient p : patients.values()) {
             if(newInstitute.getStatus() == Status.CLOSED)
                 break;
 
@@ -81,11 +80,13 @@ public class App {
 
     private void removeAdmittedPatients() {
         System.out.println("Account ID removed of admitted patients");
-        for(int i=0; i<patients.size(); ++i) {
-            if(patients.get(i).isAdmitted()) {
-                System.out.println(patients.get(i).getId());
-                patients.remove(i);
-                i--;
+        Iterator<HashMap.Entry<Integer, Patient>> iterator = patients.entrySet().iterator();
+        while(iterator.hasNext()) {
+            Map.Entry<Integer, Patient> entry = iterator.next();
+
+            if(entry.getValue().isAdmitted()) {
+                System.out.println(entry.getValue().getId());
+                iterator.remove();
             }
         }
     }
@@ -119,13 +120,7 @@ public class App {
     }
 
     private void displayPatientDetails(int patientId) {
-        Patient patient = null;
-        for(Patient p : patients) {
-            if(p.getId() == patientId){
-                patient = p;
-                break;
-            }
-        }
+        Patient patient = patients.get(patientId);
         if(patient != null)
             patient.displayDetails();
         else
@@ -133,7 +128,7 @@ public class App {
     }
 
     private void displayAllPatientsIdAndName() {
-        for(Patient p : patients){
+        for(Patient p : patients.values()){
             System.out.println(p.getId() + " " + p.getName());
         }
     }
@@ -155,7 +150,8 @@ public class App {
             String name = scanner.next();
             float temperature = scanner.nextFloat();
             int oxygenLevels = scanner.nextInt(), age = scanner.nextInt();
-            app.patients.add(new Patient(name, temperature, oxygenLevels, age));
+            Patient newPatient = new Patient(name, temperature, oxygenLevels, age);
+            app.patients.put(newPatient.getId(), newPatient);
         }
 
         while(app.noOfPatientsInCamp > 0) {
