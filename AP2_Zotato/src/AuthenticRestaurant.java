@@ -5,7 +5,7 @@ public final class AuthenticRestaurant extends Restaurant implements Discountabl
 
     @Override
     protected void offerOnBillValue() {
-        System.out.println("Enter discount on bill value - ");
+        System.out.print("Enter discount on bill value - ");
         discount = sc.nextInt();
     }
 

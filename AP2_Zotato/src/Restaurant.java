@@ -1,8 +1,8 @@
-import java.util.Vector;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Restaurant extends User {
-    private final Vector<Food> foodItems;
+    private final HashMap<Integer, Food> foodItems;
     protected int discount;
     private int noOfOrdersTaken;
 
@@ -10,14 +10,14 @@ public class Restaurant extends User {
 
     Restaurant(String name, String address) {
         super(name, address);
-        foodItems = new Vector<>();
+        foodItems = new HashMap<>();
         discount = 0;
         noOfOrdersTaken = 0;
     }
 
     private void addFoodItem() {
         Food item = new Food(name);
-        foodItems.add(item);
+        foodItems.put(item.getID(), item);
     }
 
     private void editItem() {
@@ -26,16 +26,10 @@ public class Restaurant extends User {
             return;
         }
 
-        System.out.println();
-        for (Food foodItem : foodItems) System.out.println(foodItem);
+        for (Food foodItem : foodItems.values()) System.out.println(foodItem);
 
         int opt = sc.nextInt();
-        for(Food food : foodItems) {
-            if(food.getID() == opt) {
-                food.modify();
-                break;
-            }
-        }
+        foodItems.get(opt).modify();
     }
 
     protected void offerOnBillValue() {
@@ -51,8 +45,13 @@ public class Restaurant extends User {
                 noOfOrdersTaken);
     }
 
-    public Vector<Food> getFoodItems() {
-        return foodItems;
+    public void displayFoodItems() {
+        for(Food f : foodItems.values())
+            System.out.println(f);
+    }
+
+    protected Food getFoodById(int id) {
+        return foodItems.get(id);
     }
 
     public void enter() {
@@ -73,7 +72,7 @@ public class Restaurant extends User {
                     editItem();
                     break;
                 case 3:
-                    System.out.println("Reward Points- "+getRewards());
+                    System.out.println("Reward Points - "+getRewards());
                     break;
                 case 4:
                     offerOnBillValue();

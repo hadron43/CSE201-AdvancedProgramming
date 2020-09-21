@@ -98,18 +98,14 @@ public class Customer extends User {
                         int rCode = sc.nextInt();
                         cart = new Cart(this, restaurants.get(rCode-1));
                     }
-                    Vector<Food> foods = cart.getRestaurant().getFoodItems();
+
                     System.out.println("Choose item by code");
-                    for(Food f : foods)
-                        System.out.println(f);
+                    cart.getRestaurant().displayFoodItems();
                     int fCode = sc.nextInt();
                     System.out.println("Enter item quantity - ");
                     int quantity = sc.nextInt();
 
-                    Food selectedFood = null;
-                    for(Food f : foods)
-                        if(f.getID() == fCode)
-                            selectedFood = f;
+                    Food selectedFood = cart.getRestaurant().getFoodById(fCode);
 
                     if(selectedFood == null)
                         break;

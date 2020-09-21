@@ -77,6 +77,7 @@ public final class Food implements Discountable {
             default:
                 System.out.println("Invalid Choice!");
         }
+        System.out.println(this.toString());
     }
 
     public int getID() { return  this.ID; }
