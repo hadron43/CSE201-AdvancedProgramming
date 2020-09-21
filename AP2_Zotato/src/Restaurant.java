@@ -85,6 +85,4 @@ public class Restaurant extends User {
             }
         }
     }
-
-    public float getDiscount() { return discount; }
 }

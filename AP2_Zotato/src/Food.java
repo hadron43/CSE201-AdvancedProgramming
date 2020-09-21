@@ -4,7 +4,8 @@ public final class Food implements Discountable {
     private final int ID;
     private int quantity;
     private String name, category;
-    private float price, discount;
+    private float price;
+    private int discount;
 
     private static int counter = 0;
     private final  String restaurantName;
@@ -24,7 +25,7 @@ public final class Food implements Discountable {
         System.out.println("Item Category: ");
         category = sc.next();
         System.out.println("Offer: ");
-        discount = sc.nextFloat();
+        discount = sc.nextInt();
 
         System.out.println(ID+" "+name+" "+price+" "+quantity+" "+discount+
                 "% off "+category);
@@ -71,7 +72,7 @@ public final class Food implements Discountable {
                 break;
             case 5:
                 System.out.println("Enter new offer : ");
-                discount = sc.nextFloat();
+                discount = sc.nextInt();
                 break;
             default:
                 System.out.println("Invalid Choice!");

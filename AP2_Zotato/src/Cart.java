@@ -47,10 +47,10 @@ public final class Cart {
 
     @Override
     public String toString() {
-        String ans = "";
+        StringBuilder ans = new StringBuilder();
         for(Food f : items.keySet())
-            ans += f.toString() + "\n";
-        return ans;
+            ans.append(f.toString()).append("\n");
+        return ans.toString();
     }
 
     public float calcValue() {
@@ -64,5 +64,4 @@ public final class Cart {
     public Restaurant getRestaurant() {
         return restaurant;
     }
-    public HashMap<Food, Integer> getItems() { return items; }
 }
