@@ -12,11 +12,17 @@ public final class Cart {
     }
 
     public void addToCart(Food food, int quantity) {
-        System.out.println("Items added to cart");
-        if(items.containsKey(food))
+        if(items.containsKey(food)) {
+            if(food.getQuantity() < items.get(food) + quantity) {
+                System.out.println("Insufficient Quantity!");
+                return;
+            }
             items.replace(food, items.get(food) + quantity);
+        }
         else
             items.put(food, quantity);
+
+        System.out.println("Items added to cart");
     }
 
     public int countItems() {
@@ -40,8 +46,8 @@ public final class Cart {
         System.out.print("Bought item ");
         for(Food f : items.keySet())
             System.out.print(f.getName() + ", Quantity: " + items.get(f)
-                    + " for Rs " + f.calcDiscount(f.getPrice()*items.get(f)));
-        System.out.println(" from " + restaurant + " and Delivery Charge: " +
+                    + " for Rs " + f.calcDiscount(f.getPrice()*items.get(f)) + " ");
+        System.out.println("from " + restaurant + " and Delivery Charge: " +
                 customer.getDeliveryCharge());
     }
 
@@ -63,5 +69,12 @@ public final class Cart {
 
     public Restaurant getRestaurant() {
         return restaurant;
+    }
+
+    public HashMap<Integer, Integer> getItemList() {
+        HashMap<Integer, Integer> ans = new HashMap<>();
+        for(Food f : items.keySet())
+            ans.put(f.getID(), items.get(f));
+        return ans;
     }
 }

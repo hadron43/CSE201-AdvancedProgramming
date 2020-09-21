@@ -1,6 +1,6 @@
 public class User {
-    protected String name, address;
-    protected int rewards;
+    private String name, address;
+    private int rewards;
 
     User(String _name, String _address) {
         this.name = _name;
@@ -13,9 +13,11 @@ public class User {
         return name;
     }
 
-    public int getRewards() { return rewards; }
+    protected int getRewards() { return rewards; }
 
-    public String getName() { return name; }
+    protected String getName() { return name; }
+
+    protected String getAddress() { return  address; }
 
     protected void addRewards(int _rewards, Object caller) {
         if(!(caller instanceof Company)) {
@@ -23,5 +25,11 @@ public class User {
             return;
         }
         rewards += _rewards;
+    }
+
+    protected void updateRewards(int _rewards, Object callerObject) {
+        if(!(callerObject instanceof Customer))
+            return;
+        rewards = _rewards;
     }
 }

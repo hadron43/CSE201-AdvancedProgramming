@@ -51,7 +51,7 @@ public final class Company {
         if(!customer.confirmOrder(cart, orderValue, this))
             return;
 
-        restaurant.orderSuccess();
+        restaurant.orderSuccess(cart.getItemList());
         transactionFeeCollected += 0.01 * orderValue;
         deliveryChargesCollected += customer.getDeliveryCharge();
 

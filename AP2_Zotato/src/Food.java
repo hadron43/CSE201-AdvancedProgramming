@@ -45,6 +45,10 @@ public final class Food implements Discountable {
                 + " " + quantity + " " + discount + "% off " + category;
     }
 
+    protected void reduceQuantity(int i) {
+        quantity -= i;
+    }
+
     public void modify() {
         System.out.println("Choose an attribute to edit: \n" +
                 "  1) Name \n" +

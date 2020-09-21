@@ -13,6 +13,6 @@ public final class SpecialCustomer extends Customer implements Discountable {
 
     @Override
     public String toString() {
-        return name+" (Special) ";
+        return getName()+" (Special) ";
     }
 }

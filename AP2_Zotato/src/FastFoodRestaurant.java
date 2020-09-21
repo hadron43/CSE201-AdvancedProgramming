@@ -11,7 +11,7 @@ public final class FastFoodRestaurant extends Restaurant implements Discountable
 
     @Override
     public String toString() {
-        return name + " (Fast Food)";
+        return getName() + " (Fast Food)";
     }
 
     @Override

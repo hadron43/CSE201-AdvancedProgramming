@@ -16,7 +16,7 @@ public class Restaurant extends User {
     }
 
     private void addFoodItem() {
-        Food item = new Food(name);
+        Food item = new Food(getName());
         foodItems.put(item.getID(), item);
     }
 
@@ -36,12 +36,16 @@ public class Restaurant extends User {
         System.out.println("Offer on bill value - " + discount);
     }
 
-    protected void orderSuccess() {
+    protected void orderSuccess(HashMap<Integer, Integer> boughtItems) {
         ++noOfOrdersTaken;
+
+        for(int i : boughtItems.keySet()) {
+            foodItems.get(i).reduceQuantity(boughtItems.get(i));
+        }
     }
 
     public void showDetails() {
-        System.out.println(this.toString() + ", "+ address + ", " +
+        System.out.println(this.toString() + ", "+ getAddress() + ", " +
                 noOfOrdersTaken);
     }
 
@@ -56,7 +60,7 @@ public class Restaurant extends User {
 
     public void enter() {
         while(true) {
-            System.out.println("Welcome " + name + "\n" +
+            System.out.println("Welcome " + getName() + "\n" +
                     "  1) Add item \n" +
                     "  2) Edit item \n" +
                     "  3) Print Rewards \n" +

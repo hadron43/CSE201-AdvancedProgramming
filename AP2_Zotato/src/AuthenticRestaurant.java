@@ -11,7 +11,7 @@ public final class AuthenticRestaurant extends Restaurant implements Discountabl
 
     @Override
     public String toString() {
-        return name + " (Authentic)";
+        return getName() + " (Authentic)";
     }
 
     @Override

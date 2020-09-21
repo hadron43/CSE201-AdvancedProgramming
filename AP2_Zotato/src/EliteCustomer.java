@@ -13,6 +13,6 @@ public final class EliteCustomer extends Customer implements Discountable {
 
     @Override
     public String toString() {
-        return name+" (Elite) ";
+        return getName()+" (Elite) ";
     }
 }

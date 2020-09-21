@@ -21,8 +21,8 @@ public class Customer extends User {
     }
 
     private float spendRewards(float value) {
-        float spent = Math.min(value, rewards);
-        rewards -= spent;
+        int spent = (int)Math.min(value, getRewards());
+        updateRewards(getRewards()-spent, this);
         value -= spent;
         return value;
     }
@@ -41,7 +41,7 @@ public class Customer extends User {
         System.out.print(c);
         System.out.println("Delivery Charge: " + deliveryCharge + "\n" +
                 "Total Order Value - INR " + (orderValue+deliveryCharge) + "/-");
-        if(orderValue > walletMoney + rewards) {
+        if(orderValue > walletMoney + getRewards()) {
             System.out.println("Insufficient Balance! \n" +
                     "Delete Some Item. Enter code to delete: ");
             int code = sc.nextInt();
@@ -57,7 +57,7 @@ public class Customer extends User {
             previousOrders.remove(10);
         }
 
-        float temp = orderValue;
+        float temp = orderValue + deliveryCharge;
         temp = spendRewards(temp);
         walletMoney -= temp;
         cart = null;
@@ -75,12 +75,12 @@ public class Customer extends User {
     }
 
     public void showDetails() {
-        System.out.println(toString() + ", "+address+", "+walletMoney);
+        System.out.println(toString() + ", "+getAddress()+", "+walletMoney);
     }
 
     public void enterMenu(Vector<Restaurant> restaurants) {
         while(true) {
-            System.out.println("Welcome " + name + "\n" +
+            System.out.println("Welcome " + getName() + "\n" +
                     "Customer Menu \n" +
                     ((cart == null) ? "1) Select Restaurant \n" : "1) Search Item\n") +
                     "2) Checkout Cart \n" +
@@ -117,6 +117,10 @@ public class Customer extends User {
 
                     break;
                 case 2:
+                    if(cart == null) {
+                        System.out.println("Please select Restaurant First");
+                        break;
+                    }
                     company.processOrder(cart, cart.getRestaurant(), this);
                     break;
                 case 3:
@@ -126,6 +130,7 @@ public class Customer extends User {
                     displayOrders();
                     break;
                 case 5:
+                    cart = null;
                     return;
                 default:
                     System.out.println("Invalid Choice!");
